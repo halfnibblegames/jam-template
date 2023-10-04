@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ludum Dare 54", "Ludum Dare 54.csproj", "{D1A18BC3-D8AD-4B89-999B-854288CB5C34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalfNibbleGame", "HalfNibbleGame.csproj", "{D1A18BC3-D8AD-4B89-999B-854288CB5C34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
