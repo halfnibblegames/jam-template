@@ -2,9 +2,9 @@ using Godot;
 
 public class SceneChangerLabel : Label
 {
-	[Export] 
+	[Export]
 	string TargetScenePath;
-	
+
 	public override void _GuiInput(InputEvent @event)
 	{
 		base._GuiInput(@event);
