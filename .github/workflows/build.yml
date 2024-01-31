@@ -33,11 +33,11 @@ jobs:
         working-directory: src
       - name: Build
         run: |
-          mkdir -v -p build/windows
+          mkdir -v -p ../build/windows
           godot -v --export "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
         working-directory: src
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows
           path: build/windows
@@ -64,11 +64,11 @@ jobs:
         working-directory: src
       - name: Build
         run: |
-          mkdir -v -p build/macos
+          mkdir -v -p ../build/macos
           godot -v --export "macOS Desktop" ../build/macos/$EXPORT_NAME.zip
         working-directory: src
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos
           path: build/macos
@@ -95,11 +95,11 @@ jobs:
         working-directory: src
       - name: Build
         run: |
-          mkdir -v -p build/web
+          mkdir -v -p ../build/web
           godot -v --export "HTML5" ../build/web/index.html
         working-directory: src
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: web
           path: build/web
