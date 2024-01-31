@@ -9,7 +9,7 @@ permissions:
 
 env:
   GODOT_VERSION: 3.5.2
-  EXPORT_NAME: ld54
+  EXPORT_NAME: jam-template
 
 jobs:
   build-windows:
@@ -24,12 +24,13 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7
-      - name: Restore
-        run: dotnet restore
       - name: Set up templates
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv -v /root/.local/share/godot/templates/* ~/.local/share/godot/templates
+      - run: cd src
+      - name: Restore
+        run: dotnet restore
       - name: Build
         run: |
           mkdir -v -p build/windows
@@ -53,12 +54,13 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7
-      - name: Restore
-        run: dotnet restore
       - name: Set up templates
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv -v /root/.local/share/godot/templates/* ~/.local/share/godot/templates
+      - run: cd src
+      - name: Restore
+        run: dotnet restore
       - name: Build
         run: |
           mkdir -v -p build/macos
@@ -82,12 +84,13 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7
-      - name: Restore
-        run: dotnet restore
       - name: Set up templates
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv -v /root/.local/share/godot/templates/* ~/.local/share/godot/templates
+      - run: cd src
+      - name: Restore
+        run: dotnet restore
       - name: Build
         run: |
           mkdir -v -p build/web
