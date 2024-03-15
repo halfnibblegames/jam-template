@@ -1,4 +1,5 @@
 using Godot;
+using HalfNibbleGame.Autoload;
 
 namespace HalfNibbleGame;
 
@@ -19,6 +20,6 @@ public sealed class SceneChangerLabel : Label
         }
 
         GetTree().SetInputAsHandled();
-        GetTree().ChangeScene(TargetScenePath);
+        Global.Instance.SwitchScene(TargetScenePath);
     }
 }
