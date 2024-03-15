@@ -1,17 +1,24 @@
 using Godot;
 
-public class SceneChangerLabel : Label
+namespace HalfNibbleGame;
+
+public sealed class SceneChangerLabel : Label
 {
-	[Export]
-	string TargetScenePath;
+    [Export]
+    public string? TargetScenePath;
 
-	public override void _GuiInput(InputEvent @event)
-	{
-		base._GuiInput(@event);
-		if (@event is not InputEventMouseButton { Pressed: true, ButtonIndex: (int)ButtonList.Left })
-			return;
+    public override void _GuiInput(InputEvent @event)
+    {
+        base._GuiInput(@event);
 
-		GetTree().SetInputAsHandled();
-		GetTree().ChangeScene(TargetScenePath);
-	}
+        if (TargetScenePath is null) return;
+
+        if (@event is not InputEventMouseButton { Pressed: true, ButtonIndex: (int) ButtonList.Left })
+        {
+            return;
+        }
+
+        GetTree().SetInputAsHandled();
+        GetTree().ChangeScene(TargetScenePath);
+    }
 }
