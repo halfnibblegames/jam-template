@@ -12,12 +12,6 @@ config_version=4
 
 config/name="Half Nibble Game"
 run/main_scene="res://scenes/title.tscn"
-config/icon="res://assets/images/icon.png"
-config/windows_native_icon="res://assets/images/icon.ico"
-
-[autoload]
-
-Templates="res://scenes/global/templates.tscn"
 
 [display]
 
@@ -31,6 +25,10 @@ window/stretch/aspect="keep"
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/AsepriteWizard/plugin.cfg" )
+
+[global]
+
+autoload=false
 
 [gui]
 
