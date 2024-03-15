@@ -9,15 +9,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Background" type="TextureRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1280.0
+margin_bottom = 720.0
 texture = ExtResource( 3 )
+expand = true
 
 [node name="StartButton" type="Label" parent="."]
-margin_left = 84.0
-margin_top = 67.0
-margin_right = 104.0
-margin_bottom = 72.0
+margin_left = 582.0
+margin_top = 417.0
+margin_right = 602.0
+margin_bottom = 422.0
+rect_scale = Vector2( 4, 4 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 custom_colors/font_color = Color( 0.792157, 0.823529, 0.760784, 1 )
@@ -27,10 +29,11 @@ script = ExtResource( 2 )
 TargetScenePath = "res://scenes/main.tscn"
 
 [node name="Copyright" type="Label" parent="."]
-margin_left = 32.0
-margin_top = 100.0
-margin_right = 162.0
-margin_bottom = 106.0
+margin_left = 374.0
+margin_top = 464.0
+margin_right = 504.0
+margin_bottom = 470.0
+rect_scale = Vector2( 4, 4 )
 custom_colors/font_color = Color( 0.792157, 0.823529, 0.760784, 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "Made with love by will and tom."
