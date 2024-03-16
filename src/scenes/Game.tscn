@@ -15,4 +15,4 @@ handle_input_locally = false
 usage = 0
 render_target_update_mode = 3
 
-[node name="Game" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
+[node name="World" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
