@@ -17,6 +17,7 @@ run/main_scene="res://scenes/Title.tscn"
 
 Global="*res://nodes/Autoload/Global.cs"
 Prefabs="*res://scenes/Autoload/Prefabs.tscn"
+AudioService="*res://nodes/Autoload/AudioService.cs"
 
 [display]
 
