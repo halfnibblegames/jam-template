@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 namespace HalfNibbleGame.Autoload;
 
 [UsedImplicitly]
-public class Prefabs : Node
+public sealed class Prefabs : Node
 {
     public override void _Ready()
     {
