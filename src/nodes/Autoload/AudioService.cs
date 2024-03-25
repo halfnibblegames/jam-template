@@ -15,8 +15,12 @@ public sealed class AudioService : Node
     private const string masterVolumeBeforeMutingKey = "volume_before_muting";
     private const string masterVolumeConfigurationKey = "master_volume";
 
-    [ValueRange(0, 1)] private float masterVolume = 1;
     [ValueRange(0, 1)] private float masterVolumeBeforeMuting = 1;
+
+    [ValueRange(0, 1)]
+    public float MasterVolume { get; private set; }
+
+    public event Action<float> OnVolumeChanged = delegate { };
 
     public override void _Ready()
     {
@@ -27,7 +31,7 @@ public sealed class AudioService : Node
         if (error is not Error.Ok)
             return;
 
-        masterVolume = (float) configFile.GetValue(
+        MasterVolume = (float) configFile.GetValue(
             section: volumeConfigurationSection,
             key: masterVolumeConfigurationKey,
             @default: 1.0f
@@ -42,7 +46,7 @@ public sealed class AudioService : Node
 
     public void Mute()
     {
-        masterVolumeBeforeMuting = masterVolume;
+        masterVolumeBeforeMuting = MasterVolume;
         SetVolume(0);
     }
 
@@ -57,10 +61,12 @@ public sealed class AudioService : Node
         var masterBusIndex = AudioServer.GetBusIndex(masterBusName);
         var newVolumeInDb = (Math.Abs(silence) * volume) + silence;
         AudioServer.SetBusVolumeDb(masterBusIndex, newVolumeInDb);
-        masterVolume = volume;
+        MasterVolume = volume;
+
+        OnVolumeChanged(volume);
 
         var configFile = new ConfigFile();
-        configFile.SetValue(volumeConfigurationSection, masterVolumeConfigurationKey, masterVolume);
+        configFile.SetValue(volumeConfigurationSection, masterVolumeConfigurationKey, MasterVolume);
         configFile.SetValue(volumeConfigurationSection, masterVolumeBeforeMutingKey, masterVolumeBeforeMuting);
         configFile.Save(volumeConfigFileLocation);
     }
