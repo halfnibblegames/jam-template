@@ -25,4 +25,10 @@ public partial class Global : Node
     {
         Instance = this;
     }
+
+    public void SwitchScene(string path)
+    {
+        GetTree().ChangeSceneToFile(path);
+        services.OnSceneChanging();
+    }
 }
