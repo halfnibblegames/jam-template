@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [windows, mac, linux]
+        platform: [windows, linux] # disable mac for now
 
     steps:
       - name: 🧾 Checkout
