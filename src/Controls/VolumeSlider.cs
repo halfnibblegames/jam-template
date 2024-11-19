@@ -4,7 +4,7 @@ using Godot;
 namespace HalfNibbleGame.Controls;
 
 [Tool]
-public partial class VolumeSlider : Control {
+public sealed partial class VolumeSlider : Control {
   private int busIndex;
   private double volume;
   private Slider? slider;
