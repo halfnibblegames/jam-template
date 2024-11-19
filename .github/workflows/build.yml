@@ -3,108 +3,39 @@ on:
   push:
     branches:
       - main
-
-permissions:
-  contents: write
-
-env:
-  GODOT_VERSION: 3.5.2
-  EXPORT_NAME: jam-template
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build-windows:
-    name: Windows Build
-    runs-on: ubuntu-22.04
-    container:
-      image: barichello/godot-ci:mono-3.5.2
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 7
-      - name: Set up templates
-        run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv -v /root/.local/share/godot/templates/* ~/.local/share/godot/templates
-      - name: Restore
-        run: dotnet restore
-        working-directory: src
-      - name: Build
-        run: |
-          mkdir -v -p ../build/windows
-          godot -v --export "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
-        working-directory: src
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows
-          path: build/windows
-          retention-days: 1
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [windows, linux] # disable mac for now
 
-  build-macos:
-    name: macOS Build
-    runs-on: ubuntu-22.04
-    container:
-      image: barichello/godot-ci:mono-3.5.2
     steps:
-      - name: Check out repository
+      - name: 🧾 Checkout
         uses: actions/checkout@v4
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 7
-      - name: Set up templates
-        run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv -v /root/.local/share/godot/templates/* ~/.local/share/godot/templates
-      - name: Restore
-        run: dotnet restore
-        working-directory: src
-      - name: Build
-        run: |
-          mkdir -v -p ../build/macos
-          godot -v --export "macOS Desktop" ../build/macos/$EXPORT_NAME.zip
-        working-directory: src
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: macos
-          path: build/macos
-          retention-days: 1
 
-  build-web:
-    name: Web Build
-    runs-on: ubuntu-22.04
-    container:
-      image: barichello/godot-ci:mono-3.5.2
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Setup .NET SDK
+      - name: 💽 Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 7
-      - name: Set up templates
-        run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv -v /root/.local/share/godot/templates/* ~/.local/share/godot/templates
-      - name: Restore
+          dotnet-version: 6
+
+      - name: 📦 Restore dependencies
         run: dotnet restore
-        working-directory: src
-      - name: Build
-        run: |
-          mkdir -v -p ../build/web
-          godot -v --export "HTML5" ../build/web/index.html
-        working-directory: src
+
+      - name: 🔨 Build project
+        id: build
+        uses: manleydev/build-godot-action@master
+        with:
+          name: jam-template
+          preset: ${{ matrix.platform }}
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: web
-          path: build/web
+          name: ${{ matrix.platform }}
+          path: ${{ github.workspace }}/${{ steps.build.outputs.build }}
           retention-days: 1
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: build/web
