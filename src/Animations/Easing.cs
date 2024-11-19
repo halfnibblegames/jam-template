@@ -1,6 +1,5 @@
 namespace HalfNibbleGame.Animations;
 
-static class Easing
-{
-    // See https://easings.net/
+static class Easing {
+  // See https://easings.net/
 }
