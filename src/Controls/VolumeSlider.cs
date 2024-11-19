@@ -1,4 +1,3 @@
-using System;
 using Godot;
 
 namespace HalfNibbleGame.Controls;
@@ -76,6 +75,6 @@ public sealed partial class VolumeSlider : Control {
   }
 
   public override string[] _GetConfigurationWarnings() {
-    return slider is null ? new[] { "Volume slider requires a slider as child to work." } : Array.Empty<string>();
+    return slider is null ? ["Volume slider requires a slider as child to work."] : [];
   }
 }

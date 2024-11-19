@@ -7,7 +7,7 @@ namespace HalfNibbleGame.Animations;
 
 public sealed partial class AnimationRunner : Node {
   private double totalTime;
-  private readonly List<DelayedAction> delayedActions = new();
+  private readonly List<DelayedAction> delayedActions = [];
 
   public override void _Ready() {
     Global.Services.ProvideInScene(this);

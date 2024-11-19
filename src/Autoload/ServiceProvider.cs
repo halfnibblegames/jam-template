@@ -6,7 +6,7 @@ namespace HalfNibbleGame.Autoload;
 
 public sealed class ServiceProvider : IServiceProvider {
   private readonly Dictionary<Type, object> services = new();
-  private readonly List<Type> sceneScopedServices = new();
+  private readonly List<Type> sceneScopedServices = [];
 
   public void ProvidePersistent<T>(T obj) {
     provide(obj);
