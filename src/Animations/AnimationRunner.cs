@@ -5,7 +5,7 @@ using HalfNibbleGame.Autoload;
 
 namespace HalfNibbleGame.Animations;
 
-public partial class AnimationRunner : Node {
+public sealed partial class AnimationRunner : Node {
   private double totalTime;
   private readonly List<DelayedAction> delayedActions = new();
 

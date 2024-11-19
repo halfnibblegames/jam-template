@@ -2,7 +2,7 @@ using Godot;
 
 namespace HalfNibbleGame.Autoload;
 
-public partial class Global : Node {
+public sealed partial class Global : Node {
   public static IServiceProvider Services => Instance.services;
 
   private static Prefabs? prefabs;

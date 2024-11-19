@@ -3,7 +3,7 @@ using HalfNibbleGame.Autoload;
 
 namespace HalfNibbleGame.Scenes;
 
-public partial class Splash : Control {
+public sealed partial class Splash : Control {
   private const float animationDelay = 0.7f;
   private const float textWipeDuration = 0.8f;
   private const float fadeOutDelay = 0.2f;
