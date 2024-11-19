@@ -6,8 +6,19 @@ namespace HalfNibbleGame.Controls;
 [Tool]
 public partial class VolumeSlider : Control {
   private int busIndex;
-  private double value;
+  private double volume;
   private Slider? slider;
+
+  [Export(PropertyHint.Range, "0,1,0.05")]
+  public double Volume {
+    get => volume;
+    set {
+      volume = value;
+      if (slider is not null) {
+        slider.Value = volume;
+      }
+    }
+  }
 
   // Called when the node enters the scene tree for the first time.
   public override void _EnterTree() {
@@ -27,7 +38,7 @@ public partial class VolumeSlider : Control {
   public override void _Ready() {
     base._Ready();
     busIndex = AudioServer.GetBusIndex("Master");
-    value = Mathf.DbToLinear(AudioServer.GetBusVolumeDb(busIndex));
+    volume = Mathf.DbToLinear(AudioServer.GetBusVolumeDb(busIndex));
   }
 
   private void onChildAdded(Node child) {
@@ -39,7 +50,7 @@ public partial class VolumeSlider : Control {
 
   private void setSlider(Slider s) {
     slider = s;
-    slider.Value = value;
+    slider.Value = volume;
     slider.ValueChanged += onSliderValueChanged;
 
     if (Engine.IsEditorHint()) UpdateConfigurationWarnings();
@@ -60,7 +71,7 @@ public partial class VolumeSlider : Control {
   }
 
   private void onSliderValueChanged(double newValue) {
-    value = newValue;
+    volume = newValue;
     AudioServer.SetBusVolumeDb(busIndex, (float) Mathf.LinearToDb(newValue));
   }
 
