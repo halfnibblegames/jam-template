@@ -28,6 +28,6 @@ public sealed partial class Splash : Control {
   }
 
   private void onAnimationsFinished() {
-    Global.Instance.SwitchScene("res://src/Scenes/Main.tscn");
+    Global.Instance.SwitchScene("uid://bn1xhxvduovxo");
   }
 }
