@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://b3cwit3wn6fip"]
 
 [ext_resource type="Texture2D" uid="uid://cl6eiobun482" path="res://assets/brand/strawberry_bite.png" id="1_7e4jp"]
-[ext_resource type="Script" path="res://src/Scenes/Splash.cs" id="1_ll5sv"]
+[ext_resource type="Script" uid="uid://cihyiqg1v6bti" path="res://src/Scenes/Splash.cs" id="1_ll5sv"]
 [ext_resource type="PackedScene" uid="uid://kpvcj41byjv6" path="res://src/Animations/AnimationRunner.tscn" id="2_0hxrq"]
 [ext_resource type="AudioStream" uid="uid://bixa32t73a1a" path="res://assets/brand/bite.mp3" id="2_n8shk"]
 [ext_resource type="FontFile" uid="uid://ci4lie1o50owg" path="res://assets/brand/Monocons.ttf" id="5_bvlhc"]

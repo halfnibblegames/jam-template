@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ci1x8kyywb0ap"]
 
-[ext_resource type="Script" path="res://src/Controls/VolumeSlider.cs" id="1_5b25d"]
+[ext_resource type="Script" uid="uid://csrxiplss5tq3" path="res://src/Controls/VolumeSlider.cs" id="1_5b25d"]
 
 [node name="VolumeSlider" type="Control"]
 custom_minimum_size = Vector2(64, 16)
