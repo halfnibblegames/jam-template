@@ -13,4 +13,3 @@ script = ExtResource("1_q0am5")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(8, 8)
-animation = &"ControllerButtonA"

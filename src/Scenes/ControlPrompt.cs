@@ -10,7 +10,7 @@ public partial class ControlPrompt : Control {
   private Texture2D? imageTexture;
   private int iconsPerRow;
 
-  private AnimatedSprite2D animatedSprite = null!;
+  private AnimatedSprite2D? animatedSprite;
   private SpriteFrames spriteFrames = new();
   private ControlInput shownInput;
 
@@ -18,7 +18,6 @@ public partial class ControlPrompt : Control {
   public ControlInput ShownInput {
     get => shownInput;
     set {
-      if (shownInput == value) return;
       shownInput = value;
       updateAnimation();
     }
@@ -27,19 +26,20 @@ public partial class ControlPrompt : Control {
   public override void _Ready() {
     animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite");
     animatedSprite.SpriteFrames = spriteFrames;
-    updateAnimation();
   }
 
   private void updateAnimation() {
     var animationName = animationKey(shownInput);
-    if (!spriteFrames.HasAnimation(animationName)) {
-      loadAnimation(shownInput);
+    if (spriteFrames.HasAnimation(animationName) || loadAnimation(shownInput)) {
+      animatedSprite?.Play(animationName);
     }
-    animatedSprite.Play(animationName);
   }
 
-  private void loadAnimation(ControlInput input) {
+  private bool loadAnimation(ControlInput input) {
     imageTexture ??= loadTexture(out iconsPerRow);
+    if (imageTexture is null) { // Texture might not be loaded if we're not on the main thread.
+      return false;
+    }
 
     var key = animationKey(input);
     var data = createData(input);
@@ -51,12 +51,13 @@ public partial class ControlPrompt : Control {
     spriteFrames.SetAnimationSpeed(key, animationSpeed);
     spriteFrames.AddFrame(key, normalFrame, 2);
     spriteFrames.AddFrame(key, pressedFrame);
+
+    return true;
   }
 
   private static Texture2D loadTexture(out int iconsPerRow) {
     var texture = GD.Load<Texture2D>("uid://b8builnlxpm41");
     iconsPerRow = texture.GetWidth() / tileSize;
-    GD.Print("Loaded texture");
     return texture;
   }
 
