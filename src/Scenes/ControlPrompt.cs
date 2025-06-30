@@ -49,8 +49,8 @@ public partial class ControlPrompt : Control {
 
     spriteFrames.AddAnimation(key);
     spriteFrames.SetAnimationSpeed(key, animationSpeed);
-    spriteFrames.AddFrame(key, normalFrame, 2);
-    spriteFrames.AddFrame(key, pressedFrame);
+    spriteFrames.AddFrame(key, data.Invert ? pressedFrame : normalFrame, 2);
+    spriteFrames.AddFrame(key, data.Invert ? normalFrame : pressedFrame);
 
     return true;
   }

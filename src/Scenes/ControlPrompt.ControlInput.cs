@@ -6,5 +6,23 @@ public partial class ControlPrompt {
     ControllerButtonB,
     ControllerButtonX,
     ControllerButtonY,
+
+    ControllerButtonStart,
+    ControllerButtonBack,
+
+    ControllerButtonLeft,
+    ControllerButtonRight,
+    ControllerTriggerLeft,
+    ControllerTriggerRight,
+
+    ControllerDPadUp,
+    ControllerDPadRight,
+    ControllerDPadDown,
+    ControllerDPadLeft,
+    ControllerDPadAll,
+
+    MouseButtonLeft,
+    MouseButtonRight,
+    MouseButtonMiddle,
   }
 }
