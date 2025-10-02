@@ -4,12 +4,15 @@ extends EditorPlugin
 # importers
 const NoopImportPlugin = preload("importers/noop_import_plugin.gd")
 const SpriteFramesImportPlugin = preload("importers/sprite_frames_import_plugin.gd")
+const SpriteFramesSplitImportPlugin = preload("res://addons/AsepriteWizard/importers/sprite_frames_multiple_import_plugin.gd")
 const TilesetTextureImportPlugin = preload("importers/tileset_texture_import_plugin.gd")
 const TextureImportPlugin = preload("importers/static_texture_import_plugin.gd")
-const FileSystemHelper = preload("importers/file_system_helper.gd")
-
+const TextureSplitImportPlugin = preload("res://addons/AsepriteWizard/importers/static_texture_multiple_import_plugin.gd")
+const LayerSpriteFramesImportPlugin = preload("res://addons/AsepriteWizard/importers/split_layer_importers/layer_import_plugin.gd")
+const LayerTextureImportPlugin = preload("res://addons/AsepriteWizard/importers/split_layer_importers/layer_texture_import_plugin.gd")
+const FileSystemHelper = preload("importers/helpers/file_system_helper.gd")
 # export
-const ExportPlugin = preload("export/metadata_export_plugin.gd")
+const ExportPlugin = preload("export/export_plugin.gd")
 # interface
 const ConfigDialog = preload('config/config_dialog.tscn')
 const WizardWindow = preload("interface/docks/wizard/as_wizard_dock_container.tscn")
@@ -26,7 +29,7 @@ const import_menu_item_name = "Imports Manager..."
 
 var config = preload("config/config.gd").new()
 var window: TabContainer
-var config_window: PopupPanel
+var config_window: Window
 var imports_list_window: Window
 var imports_list_panel: MarginContainer
 var export_plugin : EditorExportPlugin
@@ -34,8 +37,6 @@ var sprite_inspector_plugin: EditorInspectorPlugin
 var animated_sprite_inspector_plugin: EditorInspectorPlugin
 
 var file_system_helper
-
-var _exporter_enabled = false
 
 var _importers = []
 
@@ -82,11 +83,16 @@ func _remove_menu_entries():
 func _setup_importer():
 	file_system_helper = FileSystemHelper.new()
 	add_child(file_system_helper)
+
 	_importers = [
 		NoopImportPlugin.new(),
-		SpriteFramesImportPlugin.new(file_system_helper),
-		TilesetTextureImportPlugin.new(file_system_helper),
-		TextureImportPlugin.new(file_system_helper),
+		SpriteFramesImportPlugin.new(),
+		SpriteFramesSplitImportPlugin.new(file_system_helper),
+		TilesetTextureImportPlugin.new(),
+		TextureImportPlugin.new(),
+		TextureSplitImportPlugin.new(file_system_helper),
+		LayerSpriteFramesImportPlugin.new(),
+		LayerTextureImportPlugin.new(),
 	]
 
 	for i in _importers:
@@ -103,16 +109,12 @@ func _remove_importer():
 
 
 func _setup_exporter():
-	if config.is_exporter_enabled():
-		export_plugin = ExportPlugin.new()
-		add_export_plugin(export_plugin)
-		_exporter_enabled = true
+	export_plugin = ExportPlugin.new()
+	add_export_plugin(export_plugin)
 
 
 func _remove_exporter():
-	if _exporter_enabled:
-		remove_export_plugin(export_plugin)
-		_exporter_enabled = false
+	remove_export_plugin(export_plugin)
 
 
 func _setup_sprite_inspector_plugin():
@@ -154,7 +156,7 @@ func _open_config_dialog():
 
 	config_window = ConfigDialog.instantiate()
 	get_editor_interface().get_base_control().add_child(config_window)
-	config_window.popup_centered()
+	config_window.popup_centered_ratio(0.5)
 
 
 func _open_import_list_dialog():

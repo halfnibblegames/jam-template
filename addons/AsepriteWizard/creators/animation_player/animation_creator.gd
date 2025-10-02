@@ -29,7 +29,9 @@ func _import(target_node: Node, player: AnimationPlayer, aseprite_files: Diction
 	else:
 		target_node.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 
-	_setup_texture(target_node, sprite_sheet, content, context, options.slice != "")
+	var texture := _load_texture(sprite_sheet, options.get("should_create_portable_texture", false))
+
+	_setup_texture(target_node, texture, content, context, options.slice != "")
 	var result = _configure_animations(target_node, player, content, context, options)
 	if result != result_code.SUCCESS:
 		return result
@@ -37,7 +39,10 @@ func _import(target_node: Node, player: AnimationPlayer, aseprite_files: Diction
 	return _cleanup_animations(target_node, player, content, options)
 
 
-func _load_texture(sprite_sheet: String) -> Texture2D:
+func _load_texture(sprite_sheet: String, use_portable_tex: bool) -> Texture2D:
+	if use_portable_tex:
+		return _load_compressed_texture(sprite_sheet)
+
 	var texture = ResourceLoader.load(sprite_sheet, 'Image', ResourceLoader.CACHE_MODE_IGNORE)
 	texture.take_over_path(sprite_sheet)
 	return texture
@@ -122,7 +127,14 @@ func _add_animation_frames(target_node: Node, player: AnimationPlayer, anim_name
 		for frame in frames:
 			var frame_key = _get_frame_key(target_node, frame, context, slice_rect)
 			animation.track_insert_key(frame_track_index, animation_length, frame_key)
-			animation_length += frame.duration / 1000
+
+			var duration = frame.duration
+			if options.get("convert_to_fps"):
+				var old_ms = options.get("convert_ms_field")
+				var target_fps = options.get("convert_fps_field")
+				duration = (frame.duration / old_ms) * (1000 / target_fps)
+
+			animation_length += duration / 1000
 
 		# Godot 4 has an Animation.LOOP_PINGPONG mode, however it does not
 		# behave like in Aseprite, so I'm keeping the custom implementation
@@ -278,7 +290,7 @@ func _cleanup_tracks(target_node: Node, player: AnimationPlayer, animation: Anim
 			animation.remove_track(track_index)
 
 
-func _setup_texture(target_node: Node, sprite_sheet: String, content: Dictionary, context: Dictionary, is_importing_slice: bool):
+func _setup_texture(target_node: Node, texture: Texture2D, content: Dictionary, context: Dictionary, is_importing_slice: bool):
 	push_error("_setup_texture not implemented!")
 
 
