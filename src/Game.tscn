@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqrb5682t73m2"]
+[gd_scene format=3 uid="uid://cqrb5682t73m2"]
 
 [ext_resource type="Texture2D" uid="uid://xe0xdqucvs83" path="res://assets/fullscreen_placeholder.png" id="1_gb23r"]
-[ext_resource type="PackedScene" uid="uid://dnu2oyugc5pvh" path="res://src/Scenes/ControlPrompt.tscn" id="2_i36l2"]
+[ext_resource type="PackedScene" uid="uid://dnu2oyugc5pvh" path="res://src/Controls/ControlPrompt.tscn" id="2_i36l2"]
 
 [node name="Game" type="Node2D"]
 

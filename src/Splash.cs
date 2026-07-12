@@ -1,7 +1,7 @@
 using Godot;
 using HalfNibbleGame.Autoload;
 
-namespace HalfNibbleGame.Scenes;
+namespace HalfNibbleGame;
 
 public sealed partial class Splash : Control {
   private const float animationDelay = 0.7f;

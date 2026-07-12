@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnu2oyugc5pvh"]
+[gd_scene format=3 uid="uid://dnu2oyugc5pvh"]
 
-[ext_resource type="Script" uid="uid://ou5bsjq2w87w" path="res://src/Scenes/ControlPrompt.cs" id="1_q0am5"]
+[ext_resource type="Script" uid="uid://ou5bsjq2w87w" path="res://src/Controls/ControlPrompt.cs" id="1_q0am5"]
 
 [node name="ControllerPrompt" type="Control"]
 layout_mode = 3

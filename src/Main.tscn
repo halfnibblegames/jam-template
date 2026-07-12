@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn1xhxvduovxo"]
+[gd_scene format=3 uid="uid://bn1xhxvduovxo"]
 
-[ext_resource type="PackedScene" uid="uid://cqrb5682t73m2" path="res://src/Scenes/Game.tscn" id="1_cmrm7"]
+[ext_resource type="PackedScene" uid="uid://cqrb5682t73m2" path="res://src/Game.tscn" id="1_cmrm7"]
 [ext_resource type="PackedScene" uid="uid://ci1x8kyywb0ap" path="res://src/Controls/HVolumeSlider.tscn" id="2_ulbr1"]
 
 [node name="Main" type="Node2D"]
